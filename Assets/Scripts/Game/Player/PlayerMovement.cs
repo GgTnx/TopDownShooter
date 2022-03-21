@@ -1,3 +1,4 @@
+using TDS.Game.Input;
 using UnityEngine;
 
 namespace TDS.Game.Player
@@ -6,36 +7,29 @@ namespace TDS.Game.Player
     {
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float _speed;
-        public bool _isAlive = true;
-
         private Camera _camera;
+        private StandardInputService _input;
 
         private void Start()
         {
-            _camera = Camera.main;
+          _camera = Camera.main;
+            _input = new StandardInputService();
         }
 
         private void Update()
         {
-            if (_isAlive)
-            {
-                Move();
-                Rotate();
-            }
+            Move();
+            Rotate();
         }
 
         private void Move()
         {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-
-            Vector2 direction = new Vector2(horizontal, vertical).normalized;
-            _rb.velocity = direction * _speed;
+            _rb.velocity = _input.Axis.normalized * _speed;
         }
 
         private void Rotate()
         {
-            Vector3 mousePosition = Input.mousePosition;
+            Vector3 mousePosition = _input.MousePosition;
             Vector3 worldPoint = _camera.ScreenToWorldPoint(mousePosition);
             worldPoint.z = 0;
 
@@ -43,6 +37,4 @@ namespace TDS.Game.Player
             transform.up = up;
         }
     }
-
-    
 }

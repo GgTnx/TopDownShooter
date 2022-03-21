@@ -28,7 +28,7 @@ namespace TDS.Game.Player
                 {
                     _animator.SetTrigger(_deathAnimation);
                     PlayerMovement _movement = GetComponent<PlayerMovement>();
-                    _movement._isAlive = false;
+                   // _movement._isAlive = false;
 
                 }
                 
@@ -41,7 +41,7 @@ namespace TDS.Game.Player
                 {
                     _animator.SetTrigger(_deathAnimation);
                     PlayerMovement _movement = GetComponent<PlayerMovement>();
-                    _movement._isAlive = false;
+                  //  _movement._isAlive = false;
 
                 }
             }

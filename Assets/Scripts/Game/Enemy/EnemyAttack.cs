@@ -1,4 +1,5 @@
 ﻿using System;
+using TDS.Game.Input;
 using TDS.Game.Player;
 using UnityEngine;
 
@@ -13,12 +14,15 @@ namespace TDS.Game.Enemy
         [SerializeField] private GameObject _bulletPrefab;
         [SerializeField] private Transform _bulletSpawnPointTransform;
         [SerializeField]  private Transform _playerTransform;
+        private StandardInputService _input;
+        
 
         private float _currentDelay;
         private Vector3 up;
 
         private void Start()
         {
+            _input = new StandardInputService();
             up = _bulletSpawnPointTransform.up;
             _bulletSpawnPointTransform.up = -up;
         }
@@ -28,7 +32,7 @@ namespace TDS.Game.Enemy
             DecrementTimer(Time.deltaTime);
             RotateEnemy();
 
-            if (Input.GetButtonDown("Fire1") && CanShoot())
+            if (_input.IsFireButtonClicked())
                 Attack();
                 
         }
@@ -46,7 +50,7 @@ namespace TDS.Game.Enemy
         private bool CanShoot() =>
             _currentDelay <= 0f;
 
-        private void Attack()
+        public void Attack()
         {
             CreateBullet();
             _playerAnimation.PlayShoot();

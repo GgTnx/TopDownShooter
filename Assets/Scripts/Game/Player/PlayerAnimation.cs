@@ -9,6 +9,7 @@ namespace TDS.Game.Player
         [SerializeField] private Animator _animator;
         [SerializeField] private string _shootName;
         [SerializeField] private string _speedName;
+        [SerializeField] private string _deathName;
 
         private void Update() =>
             PlayMove();
@@ -18,5 +19,8 @@ namespace TDS.Game.Player
 
         private void PlayMove() =>
             _animator.SetFloat(_speedName, _rb.velocity.magnitude);
+
+        public void PlayDeath() =>
+            _animator.SetTrigger(_deathName);
     }
 }
